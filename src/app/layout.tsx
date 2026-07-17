@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import { Instrument_Serif } from "next/font/google";
+import Script from "next/script";
 import "./globals.css";
 
 const inter = Inter({
@@ -48,6 +49,11 @@ export default function RootLayout({
     >
       <body className="antialiased selection:bg-cyan-100 selection:text-cyan-900">
         {children}
+        <Script
+          src="https://static.cloudflareinsights.com/beacon.min.js"
+          data-cf-beacon='{"token": "9cbc170756c24ecb8293721a77deb6bc"}'
+          strategy="afterInteractive"
+        />
       </body>
     </html>
   );
