@@ -1,0 +1,469 @@
+import Link from "next/link";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "CLI Reference | Agentinel Docs",
+  description:
+    "Complete reference for all Agentinel CLI commands: asen init, asen check, asen allow, asen unshim, and more.",
+};
+
+function CodeBlock({ children, lang = "" }: { children: string; lang?: string }) {
+  return (
+    <div className="relative my-4">
+      {lang && (
+        <div
+          className="flex items-center gap-2 rounded-t-xl px-4 py-2 text-xs font-mono text-gray-400"
+          style={{ background: "#1a1f2e" }}
+        >
+          {lang}
+        </div>
+      )}
+      <pre
+        className={`${lang ? "rounded-b-xl" : "rounded-xl"} p-4 font-mono text-sm overflow-x-auto leading-relaxed`}
+        style={{ background: "#0E1117", color: "#e2e8f0" }}
+      >
+        <code>{children}</code>
+      </pre>
+    </div>
+  );
+}
+
+interface CommandProps {
+  name: string;
+  usage: string;
+  description: string;
+  flags?: { flag: string; description: string }[];
+  exitCodes?: { code: string; meaning: string }[];
+  output: string;
+  outputLang?: string;
+  notes?: string[];
+}
+
+function CommandSection({
+  name,
+  usage,
+  description,
+  flags,
+  exitCodes,
+  output,
+  outputLang = "Output",
+  notes,
+}: CommandProps) {
+  return (
+    <section className="mb-16 scroll-mt-8" id={name}>
+      <div className="flex items-center gap-3 mb-4">
+        <code className="text-sm bg-gray-900 text-cyan-400 px-3 py-1.5 rounded-lg font-mono border border-gray-800">
+          {name}
+        </code>
+      </div>
+
+      <h2 className="text-2xl font-bold text-gray-900 mb-3">{usage}</h2>
+      <p className="text-gray-600 mb-5">{description}</p>
+
+      {flags && flags.length > 0 && (
+        <>
+          <h3 className="text-sm font-bold text-gray-700 uppercase tracking-widest mb-3">
+            Flags
+          </h3>
+          <div className="overflow-x-auto rounded-xl border border-gray-200 mb-5">
+            <table className="w-full text-sm text-left">
+              <thead>
+                <tr className="bg-gray-50 border-b border-gray-200">
+                  <th className="px-5 py-3 font-semibold text-gray-700 w-1/3">
+                    Flag
+                  </th>
+                  <th className="px-5 py-3 font-semibold text-gray-700">
+                    Description
+                  </th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-gray-100">
+                {flags.map((f) => (
+                  <tr key={f.flag} className="hover:bg-gray-50 transition">
+                    <td className="px-5 py-3">
+                      <code className="text-pink-600 font-mono">{f.flag}</code>
+                    </td>
+                    <td className="px-5 py-3 text-gray-600">{f.description}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </>
+      )}
+
+      <h3 className="text-sm font-bold text-gray-700 uppercase tracking-widest mb-1">
+        Example output
+      </h3>
+      <CodeBlock lang={outputLang}>{output}</CodeBlock>
+
+      {exitCodes && exitCodes.length > 0 && (
+        <>
+          <h3 className="text-sm font-bold text-gray-700 uppercase tracking-widest mb-3 mt-5">
+            Exit codes
+          </h3>
+          <div className="overflow-x-auto rounded-xl border border-gray-200 mb-5">
+            <table className="w-full text-sm text-left">
+              <thead>
+                <tr className="bg-gray-50 border-b border-gray-200">
+                  <th className="px-5 py-3 font-semibold text-gray-700 w-24">
+                    Code
+                  </th>
+                  <th className="px-5 py-3 font-semibold text-gray-700">
+                    Meaning
+                  </th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-gray-100">
+                {exitCodes.map((ec) => (
+                  <tr key={ec.code} className="hover:bg-gray-50 transition">
+                    <td className="px-5 py-3">
+                      <code className="text-pink-600 font-mono">{ec.code}</code>
+                    </td>
+                    <td className="px-5 py-3 text-gray-600">{ec.meaning}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </>
+      )}
+
+      {notes && notes.length > 0 && (
+        <>
+          <h3 className="text-sm font-bold text-gray-700 uppercase tracking-widest mb-3 mt-2">
+            Notes
+          </h3>
+          <ul className="space-y-2">
+            {notes.map((note, i) => (
+              <li key={i} className="flex items-start gap-3 text-sm text-gray-600">
+                <span className="mt-1.5 w-1.5 h-1.5 rounded-full bg-gray-400 shrink-0" />
+                <span>{note}</span>
+              </li>
+            ))}
+          </ul>
+        </>
+      )}
+    </section>
+  );
+}
+
+export default function CommandsPage() {
+  return (
+    <article className="text-gray-700 leading-relaxed font-sans">
+      {/* Header */}
+      <div className="mb-10">
+        <p className="text-xs font-semibold text-cyan-600 uppercase tracking-widest mb-3">
+          CLI Reference
+        </p>
+        <h1 className="text-4xl md:text-5xl font-serif font-bold text-gray-900 mb-5 tracking-tight">
+          All Commands
+        </h1>
+        <p className="text-lg text-gray-500 leading-relaxed">
+          Complete reference for the{" "}
+          <code className="bg-gray-100 text-pink-600 px-1.5 py-0.5 rounded font-mono border border-gray-200 text-base">
+            asen
+          </code>{" "}
+          CLI. All commands are run via{" "}
+          <code className="bg-gray-100 text-pink-600 px-1.5 py-0.5 rounded font-mono border border-gray-200 text-base">
+            npx asen
+          </code>{" "}
+          or the locally installed binary.
+        </p>
+      </div>
+
+      {/* Quick nav */}
+      <div className="border border-gray-200 rounded-xl p-5 mb-10 bg-gray-50">
+        <p className="text-xs font-semibold text-gray-500 uppercase tracking-widest mb-3">
+          Commands
+        </p>
+        <div className="flex flex-wrap gap-2">
+          {[
+            "asen init",
+            "asen init --shim",
+            "asen check",
+            "asen check [pkg]",
+            "asen allow",
+            "asen unshim",
+          ].map((cmd) => (
+            <a
+              key={cmd}
+              href={`#${cmd.replace(/\s/g, "-").replace(/[[\]]/g, "")}`}
+              className="inline-block px-3 py-1.5 bg-white border border-gray-200 rounded-lg text-xs font-mono text-gray-700 hover:border-cyan-300 hover:text-cyan-700 transition"
+            >
+              {cmd}
+            </a>
+          ))}
+        </div>
+      </div>
+
+      <hr className="border-gray-100 mb-12" />
+
+      {/* asen init */}
+      <CommandSection
+        name="asen init"
+        usage="npx asen init"
+        description="Initializes Agentinel in your project. Auto-detects installed AI agents and writes the appropriate hook configurations. Also installs a Git pre-commit hook that scans your staged lockfile on every commit."
+        flags={[
+          {
+            flag: "--shim",
+            description:
+              "Also install a global PATH shim that intercepts npm calls system-wide. See asen init --shim below.",
+          },
+          {
+            flag: "--force",
+            description:
+              "Overwrite existing hook config files rather than merging them.",
+          },
+          {
+            flag: "--dry-run",
+            description:
+              "Preview what files would be written without actually writing them.",
+          },
+        ]}
+        exitCodes={[
+          { code: "0", meaning: "Initialization successful." },
+          { code: "1", meaning: "Fatal error (no package.json found, etc.)." },
+        ]}
+        output={`  agentinel v1.0.0 initialized
+
+  Hooks wired:
+    Claude Code   hooks.json        OK
+    Codex CLI     .codex/config     OK
+    Copilot CLI   .copilot/config   OK
+    Gemini CLI    .gemini/config    OK
+
+  Git pre-commit hook installed.
+  Config written to .agentinel.json
+
+  Run \`npx asen check\` to scan your current lockfile.`}
+        outputLang="Terminal"
+        notes={[
+          "Running asen init multiple times is safe. It will merge hook config rather than overwrite it.",
+          "The Git pre-commit hook calls npx asen check on every commit. This adds ~100ms to commit time.",
+          "asen init respects the .agentinel.json mode setting when writing the hook runner command.",
+        ]}
+      />
+
+      {/* asen init --shim */}
+      <CommandSection
+        name="asen init --shim"
+        usage="npx asen init --shim"
+        description="Runs the standard init flow and additionally installs a global PATH shim that wraps the npm binary. Any npm install command from any source (not just AI agents) will be intercepted by Agentinel."
+        flags={[]}
+        exitCodes={[
+          { code: "0", meaning: "Shim installed successfully." },
+          {
+            code: "1",
+            meaning:
+              "Could not write to shell profile or PATH location (check permissions).",
+          },
+        ]}
+        output={`  agentinel v1.0.0 initialized
+
+  PATH shim installed:
+    Shell profile:  ~/.zshrc
+    Shim binary:    ~/.agentinel/bin/npm
+    Real npm at:    /usr/local/bin/npm
+
+  All npm install calls will now be intercepted.
+  To remove the shim, run \`npx asen unshim\`.`}
+        outputLang="Terminal"
+        notes={[
+          "The shim modifies your shell profile (~/.zshrc, ~/.bashrc, etc.) to prepend ~/.agentinel/bin to your PATH.",
+          "To remove the shim cleanly without leaving dangling PATH entries, always use npx asen unshim rather than deleting files manually.",
+          "The shim only intercepts npm install and npm i. Other npm commands (npm run, npm test, etc.) are passed through immediately.",
+        ]}
+      />
+
+      {/* asen check (lockfile) */}
+      <CommandSection
+        name="asen check"
+        usage="npx asen check"
+        description="Scans your staged lockfile dependencies against the OSV database and heuristics. Designed for use in CI/CD pipelines and Git pre-commit hooks. Exits with code 1 if any flagged packages are found."
+        flags={[
+          {
+            flag: "--all",
+            description:
+              "Scan all dependencies in the lockfile, not just staged changes.",
+          },
+          {
+            flag: "--json",
+            description: "Output results in JSON format instead of a human-readable format.",
+          },
+          {
+            flag: "--fail-on-warn",
+            description:
+              "Exit with code 1 on warnings as well as blocks (useful for strict CI).",
+          },
+        ]}
+        exitCodes={[
+          { code: "0", meaning: "No flagged packages found." },
+          { code: "1", meaning: "One or more packages are flagged or blocked." },
+        ]}
+        output={`  Scanning 127 staged lockfile dependencies...
+
+  WARN  some-new-package@1.0.0
+        Reason: Low download count (892). Age: 3 days.
+
+  BLOCK lodash-utils-extended@2.1.0
+        Reason: OSV match MAL-2026-1142
+
+  Scan complete: 1 blocked, 1 warning, 125 clean.
+  Exit code: 1`}
+        outputLang="Terminal"
+        notes={[
+          "When run in a CI environment (CI=true), output is automatically formatted for log readability.",
+          "The pre-commit hook installed by asen init runs this command automatically on every git commit.",
+          "Packages in your allowlist are skipped and counted as clean.",
+        ]}
+      />
+
+      {/* asen check [pkg] */}
+      <CommandSection
+        name="asen check [pkg]"
+        usage="npx asen check <package-name>"
+        description="Instantly scans a single named package against the OSV database and heuristics. Useful for quickly checking a package before manually installing it, or for scripting package validation."
+        flags={[
+          {
+            flag: "--version <ver>",
+            description: "Check a specific version. Defaults to latest.",
+          },
+          {
+            flag: "--json",
+            description: "Output result in JSON format.",
+          },
+        ]}
+        exitCodes={[
+          { code: "0", meaning: "Package is clean." },
+          { code: "1", meaning: "Package is flagged or blocked." },
+        ]}
+        output={`  npx asen check lodash
+
+  Scanning lodash@latest...
+
+  CLEAN lodash@4.17.21
+        No OSV records. Heuristics: pass.
+        Downloads: 82,400,000/week. Age: 3,841 days.
+
+  Exit code: 0`}
+        outputLang="Terminal"
+        notes={[
+          "This command makes one npm registry call to resolve the latest version number if --version is not specified.",
+          "All other data (OSV lookup, heuristics) is resolved locally from the bundled DB.",
+          "For unknown packages (ghost packages), the check exits immediately with a BLOCK signal.",
+        ]}
+      />
+
+      {/* asen allow */}
+      <CommandSection
+        name="asen allow"
+        usage="npx asen allow <package-name> --reason <reason>"
+        description="Adds a package to the allowlist in .agentinel.json with a required reason string. The entry includes an audit trail (who added it and when) and is committed to version control so the team has visibility."
+        flags={[
+          {
+            flag: "--reason <text>",
+            description: "Required. Human-readable reason for the allowlist entry.",
+          },
+          {
+            flag: "--version <ver>",
+            description:
+              "Pin the allowlist entry to a specific version. Defaults to all versions.",
+          },
+        ]}
+        exitCodes={[
+          { code: "0", meaning: "Package added to allowlist." },
+          { code: "1", meaning: "Missing --reason flag or write error." },
+        ]}
+        output={`  npx asen allow my-internal-pkg --reason "Internal monorepo package"
+
+  Added to allowlist:
+    Package:  my-internal-pkg
+    Reason:   Internal monorepo package
+    Added by: aman@company.com
+    Added at: 2026-07-14T09:32:11.000Z
+
+  .agentinel.json updated.`}
+        outputLang="Terminal"
+        notes={[
+          "The --reason flag is required. Running asen allow without it will print an error and exit with code 1.",
+          "The addedBy field is populated from git config user.email. If git is not configured, it falls back to the system username.",
+          "Allowlisted packages bypass both OSV matching and heuristic checks, except for npm takedown markers, which always block regardless of the allowlist.",
+        ]}
+      />
+
+      {/* asen unshim */}
+      <CommandSection
+        name="asen unshim"
+        usage="npx asen unshim"
+        description="Removes the global PATH shim installed by asen init --shim. Cleans up the shim binary and removes the PATH entry from your shell profile. The real npm binary is restored to its original position."
+        flags={[
+          {
+            flag: "--dry-run",
+            description:
+              "Preview what would be removed without actually removing anything.",
+          },
+        ]}
+        exitCodes={[
+          { code: "0", meaning: "Shim removed successfully." },
+          {
+            code: "1",
+            meaning: "No shim found, or could not write to shell profile.",
+          },
+        ]}
+        output={`  npx asen unshim
+
+  Removing PATH shim...
+    Removed: ~/.agentinel/bin/npm
+    Updated: ~/.zshrc (removed PATH prepend)
+
+  The real npm at /usr/local/bin/npm is active again.
+  Restart your shell or run \`source ~/.zshrc\` to apply.`}
+        outputLang="Terminal"
+        notes={[
+          "Always use asen unshim rather than manually deleting the shim binary. Manual deletion leaves a dangling PATH entry in your shell profile.",
+          "After running unshim, restart your shell session or source your shell profile for the change to take effect.",
+          "asen unshim has no effect if the shim was never installed.",
+        ]}
+      />
+
+      {/* See also */}
+      <section className="border border-gray-200 rounded-xl p-6 bg-gray-50">
+        <h3 className="text-base font-bold text-gray-900 mb-4">See also</h3>
+        <div className="flex flex-col sm:flex-row gap-3">
+          <Link
+            href="/docs/configuration"
+            className="inline-flex items-center gap-2 px-5 py-2.5 bg-cyan-600 text-white text-sm font-medium rounded-lg hover:bg-cyan-700 transition"
+          >
+            Configuration
+            <svg
+              className="w-4 h-4"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M9 5l7 7-7 7"
+              />
+            </svg>
+          </Link>
+          <Link
+            href="/docs/hooks/claude"
+            className="inline-flex items-center gap-2 px-5 py-2.5 border border-gray-200 text-gray-700 text-sm font-medium rounded-lg hover:bg-white transition"
+          >
+            Hooks and Integrations
+          </Link>
+          <Link
+            href="/docs/architecture"
+            className="inline-flex items-center gap-2 px-5 py-2.5 border border-gray-200 text-gray-700 text-sm font-medium rounded-lg hover:bg-white transition"
+          >
+            OSV Architecture
+          </Link>
+        </div>
+      </section>
+    </article>
+  );
+}
