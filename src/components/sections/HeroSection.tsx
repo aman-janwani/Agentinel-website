@@ -141,8 +141,22 @@ export function HeroSection() {
   const activeTabData = TABS[activeTab];
 
   return (
-    <section className="relative w-full min-h-[calc(100vh-68px)] flex items-center overflow-hidden pb-12">
-      <div className="max-w-7xl mx-auto px-6 w-full pt-8 lg:pt-12 grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+    <section className="relative w-full min-h-[calc(100vh-68px)] flex flex-col justify-center overflow-hidden pb-12 pt-8 lg:pt-12">
+      
+      {/* Top Centered PH Badge */}
+      <motion.div 
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5, ease: "easeOut" }}
+        className="w-full flex justify-center mb-8 lg:mb-12 relative z-20"
+      >
+        <a href="https://www.producthunt.com/products/agentinel?embed=true&utm_source=badge-featured&utm_medium=badge&utm_campaign=badge-agentinel" target="_blank" rel="noopener noreferrer" className="hover:scale-105 transition-transform duration-300">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img alt="Agentinel - Stop AI agents from installing malicious packages. | Product Hunt" width="250" height="54" src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=1199233&theme=light&t=1784305769122" className="h-[44px] w-auto" />
+        </a>
+      </motion.div>
+
+      <div className="max-w-7xl mx-auto px-6 w-full grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
 
         {/* LEFT */}
         <div className="flex flex-col items-start gap-6">
