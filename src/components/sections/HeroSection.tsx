@@ -131,7 +131,7 @@ function AnimatedTerminal({ command, outputLines, title }: { command: string; ou
   );
 }
 
-const fadeUp = {
+const fadeUp: any = {
   hidden: { opacity: 0, y: 30 },
   visible: (i: number) => ({ opacity: 1, y: 0, transition: { duration: 0.55, ease: "easeOut", delay: i * 0.15 } }),
 };
