@@ -71,12 +71,6 @@ export function MegaFooter() {
                 <li><Link href="#features" className="hover:text-[#00E5CC] transition-colors inline-block hover:translate-x-1 duration-300">Features</Link></li>
                 <li><Link href="#how-it-works" className="hover:text-white transition-colors inline-block hover:translate-x-1 duration-300">How It Works</Link></li>
                 <li><Link href="/docs/architecture" className="hover:text-[#00E5CC] transition-colors inline-block hover:translate-x-1 duration-300">OSV Architecture</Link></li>
-                <li>
-                  <span className="flex items-center gap-2">
-                    <span className="text-gray-600">Enterprise</span>
-                    <span className="text-[9px] uppercase tracking-wider bg-white/5 border border-white/10 px-1.5 py-0.5 rounded text-gray-400">Soon</span>
-                  </span>
-                </li>
               </ul>
             </div>
 
