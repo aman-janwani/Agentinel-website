@@ -34,9 +34,8 @@ export function Button({
     lg: "px-8 py-3.5 text-base",
   };
 
-  // @ts-expect-error - polymorphic component
   return (
-    <Tag className={cn(base, variants[variant], sizes[size], className)} {...props}>
+    <Tag className={cn(base, variants[variant], sizes[size], className)} {...(props as any)}>
       {children}
     </Tag>
   );

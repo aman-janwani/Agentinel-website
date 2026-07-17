@@ -95,8 +95,7 @@ export function HowItWorks() {
             <motion.line
               x1="1" y1="0" x2="1" y2="400"
               stroke="#00E5CC" strokeWidth="2"
-              style={{ pathLength, scaleY: pathLength }}
-              transformOrigin="top"
+              style={{ pathLength, scaleY: pathLength, transformOrigin: "top" }}
             />
           </svg>
 
