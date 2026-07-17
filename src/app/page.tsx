@@ -12,13 +12,15 @@ export default function Home() {
   return (
     <div className="min-h-screen bg-white overflow-x-hidden">
       <Navbar />
-      <HeroSection />
-      <ProblemSection />
-      <StatsBar />
-      <FeaturesGrid />
-      <HowItWorks />
-      <ComparisonTable />
-      <PreFooterCTA />
+      <main>
+        <HeroSection />
+        <ProblemSection />
+        <StatsBar />
+        <FeaturesGrid />
+        <HowItWorks />
+        <ComparisonTable />
+        <PreFooterCTA />
+      </main>
       <MegaFooter />
     </div>
   );

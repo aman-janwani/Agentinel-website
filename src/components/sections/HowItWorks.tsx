@@ -41,7 +41,7 @@ function Step({ step, index, isRight }: { step: (typeof STEPS)[number]; index: n
       {/* Left content (or spacer) */}
       {!isRight ? (
         <div className="text-right">
-          <p className="text-xs font-semibold uppercase tracking-widest text-gray-400 mb-1">Step {step.number}</p>
+          <p className="text-xs font-semibold uppercase tracking-widest text-gray-500 mb-1">Step {step.number}</p>
           <h3 className="font-serif text-2xl md:text-3xl text-[#0A0A0A] mb-2">{step.title}</h3>
           <p className="text-gray-500 text-base leading-relaxed ml-auto max-w-sm">{step.description}</p>
         </div>
@@ -59,7 +59,7 @@ function Step({ step, index, isRight }: { step: (typeof STEPS)[number]; index: n
       {/* Right content (or spacer) */}
       {isRight ? (
         <div className="text-left">
-          <p className="text-xs font-semibold uppercase tracking-widest text-gray-400 mb-1">Step {step.number}</p>
+          <p className="text-xs font-semibold uppercase tracking-widest text-gray-500 mb-1">Step {step.number}</p>
           <h3 className="font-serif text-2xl md:text-3xl text-[#0A0A0A] mb-2">{step.title}</h3>
           <p className="text-gray-500 text-base leading-relaxed max-w-sm">{step.description}</p>
         </div>
@@ -79,7 +79,7 @@ export function HowItWorks() {
     <section id="how-it-works" className="bg-[#F9FAFB] py-28 md:py-36">
       <div className="max-w-5xl mx-auto px-6">
         <div className="text-center mb-20">
-          <p className="text-xs font-semibold uppercase tracking-widest text-gray-400 mb-4">How it Works</p>
+          <p className="text-xs font-semibold uppercase tracking-widest text-gray-500 mb-4">How it Works</p>
           <h2 className="font-serif text-4xl md:text-5xl text-[#0A0A0A] tracking-tight">How Agentinel Works</h2>
         </div>
 

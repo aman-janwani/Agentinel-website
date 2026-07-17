@@ -39,6 +39,7 @@ export function MegaFooter() {
                 href="https://github.com/aman-janwani/agentinel"
                 target="_blank"
                 rel="noreferrer"
+                aria-label="GitHub Repository"
                 className="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-gray-400 hover:bg-white/10 hover:text-white hover:border-white/20 transition-all duration-300"
               >
                 <GithubIcon className="w-5 h-5" />
@@ -47,6 +48,7 @@ export function MegaFooter() {
                 href="https://npmjs.com/package/agentinel"
                 target="_blank"
                 rel="noreferrer"
+                aria-label="npm Package"
                 className="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-gray-400 hover:bg-white/10 hover:text-[#CB3837] hover:border-[#CB3837]/30 transition-all duration-300"
               >
                 <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
@@ -62,9 +64,9 @@ export function MegaFooter() {
           {/* Links Columns */}
           <div className="md:col-span-7 lg:col-span-7 grid grid-cols-2 sm:grid-cols-3 gap-8">
             <div>
-              <h4 className="font-sans text-xs font-semibold text-gray-200 uppercase tracking-[0.2em] mb-6">
+              <h3 className="font-sans text-xs font-semibold text-gray-200 uppercase tracking-[0.2em] mb-6">
                 Product
-              </h4>
+              </h3>
               <ul className="flex flex-col gap-4 text-sm text-gray-500 font-medium">
                 <li><Link href="#features" className="hover:text-[#00E5CC] transition-colors inline-block hover:translate-x-1 duration-300">Features</Link></li>
                 <li><Link href="#how-it-works" className="hover:text-white transition-colors inline-block hover:translate-x-1 duration-300">How It Works</Link></li>
@@ -79,9 +81,9 @@ export function MegaFooter() {
             </div>
 
             <div>
-              <h4 className="font-sans text-xs font-semibold text-gray-200 uppercase tracking-[0.2em] mb-6">
+              <h3 className="font-sans text-xs font-semibold text-gray-200 uppercase tracking-[0.2em] mb-6">
                 Developers
-              </h4>
+              </h3>
               <ul className="flex flex-col gap-4 text-sm text-gray-500 font-medium">
                 <li><Link href="/docs/introduction" className="hover:text-white transition-colors inline-block hover:translate-x-1 duration-300">Documentation</Link></li>
                 <li><Link href="/docs/installation" className="hover:text-white transition-colors inline-block hover:translate-x-1 duration-300">Installation</Link></li>
@@ -91,9 +93,9 @@ export function MegaFooter() {
             </div>
 
             <div className="col-span-2 sm:col-span-1">
-              <h4 className="font-sans text-xs font-semibold text-gray-200 uppercase tracking-[0.2em] mb-6">
+              <h3 className="font-sans text-xs font-semibold text-gray-200 uppercase tracking-[0.2em] mb-6">
                 Integrations
-              </h4>
+              </h3>
               <ul className="flex flex-col gap-4 text-sm text-gray-500 font-medium">
                 <li><Link href="/docs/hooks/claude" className="hover:text-white transition-colors inline-block hover:translate-x-1 duration-300">Claude Code</Link></li>
                 <li><Link href="/docs/hooks/copilot" className="hover:text-white transition-colors inline-block hover:translate-x-1 duration-300">Copilot CLI</Link></li>
@@ -108,7 +110,7 @@ export function MegaFooter() {
           <div className="absolute inset-0 bg-gradient-to-r from-[#00E5CC]/0 via-[#00E5CC]/5 to-[#00E5CC]/0 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-[2s] ease-in-out" />
           
           <div className="relative z-10 flex-1">
-            <h4 className="text-xl font-serif text-white mb-2">Join our newsletter</h4>
+            <h3 className="text-xl font-serif text-white mb-2">Join our newsletter</h3>
             <p className="text-sm text-gray-500">Get notified about new products and updates.</p>
           </div>
           

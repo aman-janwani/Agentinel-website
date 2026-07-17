@@ -77,7 +77,7 @@ export function ComparisonTable() {
     <section className="bg-white py-28 md:py-36">
       <div className="max-w-5xl mx-auto px-6">
         <div className="mb-14 text-center">
-          <p className="text-xs font-semibold uppercase tracking-widest text-gray-400 mb-4">
+          <p className="text-xs font-semibold uppercase tracking-widest text-gray-500 mb-4">
             Comparison
           </p>
           <h2 className="font-serif text-4xl md:text-5xl text-[#0A0A0A] tracking-tight">
@@ -144,7 +144,7 @@ export function ComparisonTable() {
                   <td className="px-6 py-4 text-center">
                     <div className="flex items-center justify-center gap-2">
                       {row.alternative.positive === false && <Cross />}
-                      <span className="text-gray-400">{row.alternative.text}</span>
+                      <span className="text-gray-500">{row.alternative.text}</span>
                     </div>
                   </td>
                 </tr>
@@ -166,7 +166,7 @@ export function ComparisonTable() {
               <span><strong className="text-gray-700">Detection Depth:</strong> We use DB matching plus heuristics rather than ML behavioral analysis. We compensate by being the only tool that integrates at the AI agent hook level, blocking threats before execution rather than scanning after the fact.</span>
             </li>
           </ul>
-          <p className="mt-4 text-xs text-gray-400">Comparison reflects general market characteristics as of 2026. Individual products may vary.</p>
+          <p className="mt-4 text-xs text-gray-500">Comparison reflects general market characteristics as of 2026. Individual products may vary.</p>
         </div>
       </div>
     </section>

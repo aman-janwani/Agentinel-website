@@ -185,7 +185,7 @@ export function FeaturesGrid() {
     <section id="features" className="bg-white py-28 md:py-36">
       <div className="max-w-7xl mx-auto px-6">
         <div className="mb-16 max-w-2xl">
-          <p className="text-xs font-sans font-semibold uppercase tracking-widest text-gray-400 mb-4">Features</p>
+          <p className="text-xs font-sans font-semibold uppercase tracking-widest text-gray-500 mb-4">Features</p>
           <h2 className="font-serif text-4xl md:text-5xl text-[#0A0A0A] tracking-tight leading-tight mb-4">
             Guarding your terminal is already too late.
           </h2>
