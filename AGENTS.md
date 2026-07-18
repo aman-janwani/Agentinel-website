@@ -37,3 +37,11 @@ If you are generating or modifying UI components, strictly adhere to these estab
 ## 4. General Vibe
 - Premium, sarcastic, developer-first, and hyper-modern. Avoid generic Bootstrap/Tailwind defaults. Use precise hex codes and custom spacing.
 <!-- END:ui-design-guidelines -->
+
+<!-- BEGIN:git-workflow-rules -->
+# Git & Contribution Workflow
+
+- **Branching:** ALWAYS create a new branch for your work (e.g., `git checkout -b feature/xyz`). NEVER push directly to the `main` branch.
+- **Pull Requests:** After completing work and pushing the branch, use the GitHub CLI (`gh pr create`) to create a Pull Request with a standard open-source format (clear title, description of changes, list of affected components).
+- **Approval:** Wait for the user to explicitly approve the PR before merging. Do NOT merge PRs autonomously without permission.
+<!-- END:git-workflow-rules -->
