@@ -4,6 +4,8 @@
 
 > The official landing page and documentation site for **Agentinel** — the zero-cost, locally-run package guardrail for autonomous AI coding agents. 
 
+🔗 **For the core Agentinel CLI, hooks, and source code, please visit the [Main Agentinel Repository](https://github.com/aman-janwani/agentinel).**
+
 This repository contains the source code for the Agentinel website, built with modern web standards to be blazingly fast, visually stunning, and highly accessible.
 
 ## 🚀 Tech Stack

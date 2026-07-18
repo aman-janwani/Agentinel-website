@@ -12,7 +12,7 @@ type RichTerminalLine = { text: string | RichToken[]; color?: string };
 
 const NORMAL_HOOK_LINES: RichTerminalLine[] = [
   { text: "" },
-  { text: "⚠️ agentinel warning: react-router-v7-fake is 1 day old and has 4 downloads.", color: "text-amber-400 font-semibold" },
+  { text: "⚠️ agentinel warning: left-pad-malicious is 2 days old and has 12 downloads.", color: "text-amber-400 font-semibold" },
   { text: "" },
   { text: "This matches the profile of a slopsquatting or malicious package.", color: "text-amber-400" },
   { text: "" },
@@ -39,15 +39,15 @@ const CLAUDE_LINES: RichTerminalLine[] = [
   { text: [
       { text: '  "reason"', color: 'text-gray-400' },
       { text: ': ', color: 'text-gray-300' },
-      { text: '"agentinel blocked \'react-router-v7-fake\': Package does not exist on npm (hallucination)."', color: 'text-amber-400' }
+      { text: '"agentinel blocked \'react-router-v7-beta\': Package does not exist on npm (hallucination)."', color: 'text-amber-400' }
     ] 
   },
   { text: "}" },
 ];
 
 const TABS = [
-  { id: "normal" as const, label: "Normal Hook", command: "npm install react-router-v7-fake", lines: NORMAL_HOOK_LINES, title: "bash -- agentinel" },
-  { id: "claude" as const, label: "Claude Code", command: "claude: npm install react-router-v7-fake", lines: CLAUDE_LINES, title: "PreToolUse -- agentinel" },
+  { id: "normal" as const, label: "Normal Hook", command: "npm install left-pad-malicious", lines: NORMAL_HOOK_LINES, title: "bash -- agentinel" },
+  { id: "claude" as const, label: "Claude Code", command: "claude: npm install react-router-v7-beta", lines: CLAUDE_LINES, title: "PreToolUse -- agentinel" },
 ];
 
 const TYPING_SPEED = 40;

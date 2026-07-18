@@ -208,12 +208,9 @@ export function FeaturesGrid() {
               <div className="bg-[#0E1117] rounded-2xl p-5 font-mono text-xs overflow-x-auto border border-white/5">
                 <div className="text-gray-500 mb-1">{"// Feedback injected into agent context"}</div>
                 <div className="text-gray-300">{"{"}</div>
-                <div className="text-gray-400 ml-4">{"\"hook\": \"PreToolUse\","}</div>
-                <div className="text-gray-400 ml-4">{"\"agentinel\": {"}</div>
-                <div className="text-red-400 ml-8">{"\"blocked\": true,"}</div>
-                <div className="text-amber-400 ml-8">{"\"reason\": \"slopsquatting_profile\","}</div>
-                <div className="text-[#00E5CC] ml-8">{"\"suggestion\": \"Did you mean react-router-dom?\""}</div>
-                <div className="text-gray-400 ml-4">{"}"}</div>
+                <div className="text-gray-400 ml-4">{"\"hookEvent\": \"PreToolUse\","}</div>
+                <div className="text-red-400 ml-4">{"\"action\": \"BLOCK\","}</div>
+                <div className="text-amber-400 ml-4">{"\"reason\": \"agentinel blocked 'react-router-v7-beta': Package does not exist on npm (hallucination).\""}</div>
                 <div className="text-gray-300">{"}"}</div>
               </div>
             </Card>
