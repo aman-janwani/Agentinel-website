@@ -177,13 +177,13 @@ export default function InstallationPage() {
           <p className="text-sm text-gray-500 mt-2">
             This writes{" "}
             <code className="bg-gray-100 text-pink-600 px-1 rounded font-mono">
-              hooks.json
+              .claude/settings.json
             </code>{" "}
             (Claude Code),{" "}
             <code className="bg-gray-100 text-pink-600 px-1 rounded font-mono">
               .agentinel.json
             </code>
-            , and a Git hook to your project root.
+            , and a Git hook to your project root. It also installs a global PATH shim by default.
           </p>
         </Step>
 
@@ -195,18 +195,17 @@ export default function InstallationPage() {
             </code>
             , you should see output similar to:
           </p>
-          <CodeBlock>{`  agentinel v1.0.0 initialized
+          <CodeBlock>{`$ npx asen init
+wrote .agentinel.json
+registered the Claude Code PreToolUse hook in .claude/settings.json
+installed the git pre-commit hook in .git/hooks
+wrote shims for npm, npx, pnpm, yarn, bun in /Users/user/.agentinel/bin
+added the shims to PATH in /Users/user/.zshrc
+Mode is warn, so a risky package typed at the terminal will be reported, not blocked.
+Open a new terminal, or run \`asen unshim\` to undo this.
 
-  Hooks wired:
-    Claude Code   hooks.json        OK
-    Codex CLI     .codex/config     OK
-    Copilot CLI   .copilot/config   OK
-    Gemini CLI    .gemini/config    OK
-
-  Git pre-commit hook installed.
-  Config written to .agentinel.json
-
-  Run \`npx asen check\` to scan your current lockfile.`}</CodeBlock>
+agentinel is set up. New npm packages will be checked before they land.
+Default mode is warn. Set "mode": "strict" in .agentinel.json to block instead.`}</CodeBlock>
           <p className="text-sm text-gray-500 mt-2">
             Only the agents you have installed will appear in the hooks list.
           </p>
@@ -216,21 +215,17 @@ export default function InstallationPage() {
       {/* Optional: PATH shim */}
       <section className="mb-12">
         <h2 className="text-2xl font-bold text-gray-900 mb-4">
-          Optional: Installing the PATH shim
+          Optional: Skipping the PATH shim
         </h2>
         <p className="mb-4 text-sm">
-          If your agent runs{" "}
-          <code className="bg-gray-100 text-pink-600 px-1.5 py-0.5 rounded font-mono border border-gray-200">
-            npm
-          </code>{" "}
-          directly (rather than through a hook), you can install a global PATH
+          By default, <code className="bg-gray-100 text-pink-600 px-1.5 py-0.5 rounded font-mono border border-gray-200">asen init</code> installs a global PATH
           shim that intercepts all{" "}
           <code className="bg-gray-100 text-pink-600 px-1.5 py-0.5 rounded font-mono border border-gray-200">
             npm install
           </code>{" "}
-          calls system-wide before forwarding them to the real npm binary.
+          calls system-wide before forwarding them to the real npm binary. If you only want to wire up agent hooks and git hooks, you can skip this.
         </p>
-        <CodeBlock>npx asen init --shim</CodeBlock>
+        <CodeBlock>npx asen init --no-shim</CodeBlock>
         <div className="border-l-4 border-amber-400 bg-amber-50 rounded-r-xl px-5 py-4 mt-4">
           <p className="text-sm font-semibold text-amber-800 mb-1">
             Shim caveat

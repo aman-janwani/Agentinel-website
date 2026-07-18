@@ -1,0 +1,21 @@
+[Option 1: Conversational and completely plain text]
+Hey Product Hunt, I am thrilled to launch Agentinel today. 
+
+LLMs are incredible coders, but they are genuinely terrible at remembering exact npm package names. They frequently hallucinate packages or fall victim to slopsquatting, where attackers publish malicious packages with names that AIs are known to hallucinate. If you use autonomous agents like Claude Code or Copilot Workspace, your terminal is executing these installs automatically.
+
+Agentinel acts as a security layer that sits between your AI agent and your package manager. It doesn't just scan your repo after the fact; it intercepts the AI's intended command and validates every package before it runs. It executes in under 2ms using local heuristics and a lightweight offline database, and it is 100% free and open source. 
+
+I built this because I wanted the speed of autonomous AI coding without the constant anxiety of what it was installing in the background. 
+
+Would love to hear your thoughts, feedback, or any wild AI hallucination stories you've experienced. I will be hanging out in the comments all day to answer questions!
+
+***
+
+[Option 2: Short and punchy]
+Hi everyone! Today we are launching Agentinel.
+
+AI coding agents are great, but they hallucinate npm packages all the time. Bad actors know this and publish malicious packages with those exact names. If you use tools like Claude Code, they will automatically install them.
+
+Agentinel fixes this. It is a free, local security layer that sits between your AI and your package manager. It intercepts commands and validates every package before it executes, all in under 2ms. No cloud latency, no subscriptions.
+
+I built this to get the speed of AI coding without the anxiety of malicious installs. Let me know what you think!

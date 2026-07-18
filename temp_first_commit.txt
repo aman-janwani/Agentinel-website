@@ -1,0 +1,20 @@
+
+    fix: second framer motion type error
+
+commit 32ba8dcdfc7115c49bc04ceacc26eac89f8b0145
+Author: Aman Janwani <amanjanwani1486@gmail.com>
+Date:   Fri Jul 17 20:29:14 2026 +0530
+
+    fix: framer motion type error
+
+commit 5a8f5a5d279161ce65f2b249a62ae013f2ea2212
+Author: Aman Janwani <amanjanwani1486@gmail.com>
+Date:   Fri Jul 17 20:15:11 2026 +0530
+
+    Initial commit for Agentinel website
+
+commit 2cfc84e09553dcbbe1fb3eac9d270b43eed43dbe
+Author: Aman Janwani <amanjanwani1486@gmail.com>
+Date:   Fri Jul 17 11:53:11 2026 +0530
+
+    Initial commit from Create Next App

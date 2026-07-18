@@ -1,0 +1,15 @@
+[Next.js]
+Alternative considered: Astro
+Why we chose it: We needed absolute maximum performance for a static site but wanted the flexibility of React Server Components and the App Router for future scalability. Next.js provided the perfect balance of out-of-the-box SEO optimization, fast static exports, and a seamless developer experience.
+
+[Resend]
+Alternative considered: Loops
+Why we chose it: The developer experience is simply unmatched. We needed a lightweight, zero-latency way to capture newsletter signups directly into an audience list without embedding bulky form scripts on our landing page. Resend's API made it the clear winner.
+
+[Tailwind CSS]
+Alternative considered: shadcn/ui
+Why we chose it: We wanted complete, pixel-perfect control over our custom design language (specifically the glassmorphism, subtle glows, and dark mode aesthetics) without being locked into pre-built component structures. Tailwind gave us incredible utility speed while keeping our CSS bundle microscopic.
+
+[GitHub]
+Alternative considered: GitLab
+Why we chose it: GitHub is where the entire open-source developer ecosystem lives. Since Agentinel is an open-source security tool designed to protect developer workflows, hosting it on GitHub was the only logical choice to encourage community contributions, build trust, and integrate seamlessly with tools like GitHub Actions.

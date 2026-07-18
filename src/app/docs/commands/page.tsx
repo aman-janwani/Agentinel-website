@@ -180,10 +180,12 @@ export default function CommandsPage() {
         <div className="flex flex-wrap gap-2">
           {[
             "asen init",
-            "asen init --shim",
+            "asen init --no-shim",
             "asen check",
             "asen check [pkg]",
             "asen allow",
+            "asen mode",
+            "asen uninstall",
             "asen unshim",
           ].map((cmd) => (
             <a
@@ -206,9 +208,9 @@ export default function CommandsPage() {
         description="Initializes Agentinel in your project. Auto-detects installed AI agents and writes the appropriate hook configurations. Also installs a Git pre-commit hook that scans your staged lockfile on every commit."
         flags={[
           {
-            flag: "--shim",
+            flag: "--no-shim",
             description:
-              "Also install a global PATH shim that intercepts npm calls system-wide. See asen init --shim below.",
+              "Skip installing the global PATH shim that intercepts npm calls system-wide.",
           },
           {
             flag: "--force",
@@ -225,18 +227,17 @@ export default function CommandsPage() {
           { code: "0", meaning: "Initialization successful." },
           { code: "1", meaning: "Fatal error (no package.json found, etc.)." },
         ]}
-        output={`  agentinel v1.0.0 initialized
+        output={`$ npx asen init
+wrote .agentinel.json
+registered the Claude Code PreToolUse hook in .claude/settings.json
+installed the git pre-commit hook in .git/hooks
+wrote shims for npm, npx, pnpm, yarn, bun in /Users/user/.agentinel/bin
+added the shims to PATH in /Users/user/.zshrc
+Mode is warn, so a risky package typed at the terminal will be reported, not blocked.
+Open a new terminal, or run \`asen unshim\` to undo this.
 
-  Hooks wired:
-    Claude Code   hooks.json        OK
-    Codex CLI     .codex/config     OK
-    Copilot CLI   .copilot/config   OK
-    Gemini CLI    .gemini/config    OK
-
-  Git pre-commit hook installed.
-  Config written to .agentinel.json
-
-  Run \`npx asen check\` to scan your current lockfile.`}
+agentinel is set up. New npm packages will be checked before they land.
+Default mode is warn. Set "mode": "strict" in .agentinel.json to block instead.`}
         outputLang="Terminal"
         notes={[
           "Running asen init multiple times is safe. It will merge hook config rather than overwrite it.",
@@ -245,34 +246,31 @@ export default function CommandsPage() {
         ]}
       />
 
-      {/* asen init --shim */}
+      {/* asen init --no-shim */}
       <CommandSection
-        name="asen init --shim"
-        usage="npx asen init --shim"
-        description="Runs the standard init flow and additionally installs a global PATH shim that wraps the npm binary. Any npm install command from any source (not just AI agents) will be intercepted by Agentinel."
+        name="asen init --no-shim"
+        usage="npx asen init --no-shim"
+        description="Runs the standard init flow to wire up agent hooks and git hooks, but skips installing the global PATH shim that wraps the npm binary."
         flags={[]}
         exitCodes={[
-          { code: "0", meaning: "Shim installed successfully." },
+          { code: "0", meaning: "Init successful without shim." },
           {
             code: "1",
             meaning:
-              "Could not write to shell profile or PATH location (check permissions).",
+              "Fatal error (no package.json found, etc.).",
           },
         ]}
-        output={`  agentinel v1.0.0 initialized
+        output={`$ npx asen init --no-shim
+wrote .agentinel.json
+registered the Claude Code PreToolUse hook in .claude/settings.json
+installed the git pre-commit hook in .git/hooks
 
-  PATH shim installed:
-    Shell profile:  ~/.zshrc
-    Shim binary:    ~/.agentinel/bin/npm
-    Real npm at:    /usr/local/bin/npm
-
-  All npm install calls will now be intercepted.
-  To remove the shim, run \`npx asen unshim\`.`}
+agentinel is set up. New npm packages will be checked before they land.
+Default mode is warn. Set "mode": "strict" in .agentinel.json to block instead.`}
         outputLang="Terminal"
         notes={[
           "The shim modifies your shell profile (~/.zshrc, ~/.bashrc, etc.) to prepend ~/.agentinel/bin to your PATH.",
-          "To remove the shim cleanly without leaving dangling PATH entries, always use npx asen unshim rather than deleting files manually.",
-          "The shim only intercepts npm install and npm i. Other npm commands (npm run, npm test, etc.) are passed through immediately.",
+          "If you want to manually revert the hook changes later, you can run npx asen uninstall."
         ]}
       />
 
@@ -390,6 +388,35 @@ export default function CommandsPage() {
           "The addedBy field is populated from git config user.email. If git is not configured, it falls back to the system username.",
           "Allowlisted packages bypass both OSV matching and heuristic checks, except for npm takedown markers, which always block regardless of the allowlist.",
         ]}
+      />
+
+      {/* asen mode */}
+      <CommandSection
+        name="asen mode"
+        usage="npx asen mode <warn|strict>"
+        description="Switches Agentinel's operating mode in the .agentinel.json file."
+        flags={[]}
+        exitCodes={[
+          { code: "0", meaning: "Mode updated." },
+          { code: "1", meaning: "Invalid mode or missing configuration." },
+        ]}
+        output={`$ npx asen mode strict
+set mode to strict in .agentinel.json`}
+        outputLang="Terminal"
+      />
+
+      {/* asen uninstall */}
+      <CommandSection
+        name="asen uninstall"
+        usage="npx asen uninstall"
+        description="Completely removes all Agentinel hooks from your repository config files (.claude, .gemini, .github, etc.) and removes global shims."
+        flags={[]}
+        exitCodes={[
+          { code: "0", meaning: "Agentinel completely uninstalled." },
+        ]}
+        output={`$ npx asen uninstall
+agentinel has been completely uninstalled from this repository.`}
+        outputLang="Terminal"
       />
 
       {/* asen unshim */}
