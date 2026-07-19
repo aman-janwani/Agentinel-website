@@ -196,16 +196,34 @@ export default function InstallationPage() {
             , you should see output similar to:
           </p>
           <CodeBlock>{`$ npx asen init
-wrote .agentinel.json
-registered the Claude Code PreToolUse hook in .claude/settings.json
-installed the git pre-commit hook in .git/hooks
-wrote shims for npm, npx, pnpm, yarn, bun in /Users/user/.agentinel/bin
-added the shims to PATH in /Users/user/.zshrc
-Mode is strict, so a risky package typed at the terminal will be blocked.
-Open a new terminal, or run \`asen unshim\` to undo this.
 
-agentinel is set up. New npm packages will be checked before they land.
-Default mode is strict. Set "mode": "warn" in .agentinel.json to only warn instead.`}</CodeBlock>
+╭─ agentinel ──────────────────────────────╮
+│  agentinel setup complete                │
+│                                          │
+│  New npm packages will be checked before │
+│  they land.                              │
+│                                          │
+│  ✔ wrote .agentinel.json                 │
+│  ✔ registered the Claude Code PreToolUse │
+│  hook in .claude/settings.json           │
+│  ✔ installed the git pre-commit hook in  │
+│  .git/hooks                              │
+│  ✔ wrote shims for npm, npx, pnpm, yarn, │
+│  bun in /Users/user/.agentinel/bin       │
+│  ✔ added the shims to PATH in            │
+│  /Users/user/.zshrc                      │
+│  ✔ Open a new terminal, or run \`asen     │
+│  unshim\` to undo this.                   │
+│                                          │
+│  Default mode is strict. Set "mode":     │
+│  "warn" in .agentinel.json to only warn  │
+│  instead.                                │
+╰──────────────────────────────────────────╯
+
+Performance Tip:
+The hook runs on every command, and resolving through npx each time is slow.
+For faster hooks, add it to the repo and run init again:
+  npm install --save-dev agentinel && npx asen init`}</CodeBlock>
           <p className="text-sm text-gray-500 mt-2">
             Only the agents you have installed will appear in the hooks list.
           </p>
