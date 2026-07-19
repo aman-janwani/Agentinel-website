@@ -160,15 +160,23 @@ export default function CommandsPage() {
           All Commands
         </h1>
         <p className="text-lg text-gray-500 leading-relaxed">
-          Complete reference for the{" "}
+          You can run Agentinel using{" "}
           <code className="bg-gray-100 text-pink-600 px-1.5 py-0.5 rounded font-mono border border-gray-200 text-base">
-            asen
-          </code>{" "}
-          CLI. All commands are run via{" "}
+            npx agentinel &lt;command&gt;
+          </code>
+          . If you have installed{" "}
           <code className="bg-gray-100 text-pink-600 px-1.5 py-0.5 rounded font-mono border border-gray-200 text-base">
-            npx asen
+            agentinel
           </code>{" "}
-          or the locally installed binary.
+          globally or locally, you can use the shorter alias:{" "}
+          <code className="bg-gray-100 text-pink-600 px-1.5 py-0.5 rounded font-mono border border-gray-200 text-base">
+            npx asen &lt;command&gt;
+          </code>{" "}
+          (or just{" "}
+          <code className="bg-gray-100 text-pink-600 px-1.5 py-0.5 rounded font-mono border border-gray-200 text-base">
+            asen &lt;command&gt;
+          </code>{" "}
+          if global).
         </p>
       </div>
 
@@ -228,16 +236,34 @@ export default function CommandsPage() {
           { code: "1", meaning: "Fatal error (no package.json found, etc.)." },
         ]}
         output={`$ npx asen init
-wrote .agentinel.json
-registered the Claude Code PreToolUse hook in .claude/settings.json
-installed the git pre-commit hook in .git/hooks
-wrote shims for npm, npx, pnpm, yarn, bun in /Users/user/.agentinel/bin
-added the shims to PATH in /Users/user/.zshrc
-Mode is strict, so a risky package typed at the terminal will be blocked.
-Open a new terminal, or run \`asen unshim\` to undo this.
 
-agentinel is set up. New npm packages will be checked before they land.
-Default mode is strict. Set "mode": "warn" in .agentinel.json to only warn instead.`}
+╭─ agentinel ──────────────────────────────╮
+│  agentinel setup complete                │
+│                                          │
+│  New npm packages will be checked before │
+│  they land.                              │
+│                                          │
+│  ✔ wrote .agentinel.json                 │
+│  ✔ registered the Claude Code PreToolUse │
+│  hook in .claude/settings.json           │
+│  ✔ installed the git pre-commit hook in  │
+│  .git/hooks                              │
+│  ✔ wrote shims for npm, npx, pnpm, yarn, │
+│  bun in /Users/user/.agentinel/bin       │
+│  ✔ added the shims to PATH in            │
+│  /Users/user/.zshrc                      │
+│  ✔ Open a new terminal, or run \`asen     │
+│  unshim\` to undo this.                   │
+│                                          │
+│  Default mode is strict. Set "mode":     │
+│  "warn" in .agentinel.json to only warn  │
+│  instead.                                │
+╰──────────────────────────────────────────╯
+
+Performance Tip:
+The hook runs on every command, and resolving through npx each time is slow.
+For faster hooks, add it to the repo and run init again:
+  npm install --save-dev agentinel && npx asen init`}
         outputLang="Terminal"
         notes={[
           "Running asen init multiple times is safe. It will merge hook config rather than overwrite it.",
