@@ -233,11 +233,11 @@ registered the Claude Code PreToolUse hook in .claude/settings.json
 installed the git pre-commit hook in .git/hooks
 wrote shims for npm, npx, pnpm, yarn, bun in /Users/user/.agentinel/bin
 added the shims to PATH in /Users/user/.zshrc
-Mode is warn, so a risky package typed at the terminal will be reported, not blocked.
+Mode is strict, so a risky package typed at the terminal will be blocked.
 Open a new terminal, or run \`asen unshim\` to undo this.
 
 agentinel is set up. New npm packages will be checked before they land.
-Default mode is warn. Set "mode": "strict" in .agentinel.json to block instead.`}
+Default mode is strict. Set "mode": "warn" in .agentinel.json to only warn instead.`}
         outputLang="Terminal"
         notes={[
           "Running asen init multiple times is safe. It will merge hook config rather than overwrite it.",
@@ -266,7 +266,7 @@ registered the Claude Code PreToolUse hook in .claude/settings.json
 installed the git pre-commit hook in .git/hooks
 
 agentinel is set up. New npm packages will be checked before they land.
-Default mode is warn. Set "mode": "strict" in .agentinel.json to block instead.`}
+Default mode is strict. Set "mode": "warn" in .agentinel.json to only warn instead.`}
         outputLang="Terminal"
         notes={[
           "The shim modifies your shell profile (~/.zshrc, ~/.bashrc, etc.) to prepend ~/.agentinel/bin to your PATH.",
@@ -299,16 +299,8 @@ Default mode is warn. Set "mode": "strict" in .agentinel.json to block instead.`
           { code: "0", meaning: "No flagged packages found." },
           { code: "1", meaning: "One or more packages are flagged or blocked." },
         ]}
-        output={`  Scanning 127 staged lockfile dependencies...
-
-  WARN  some-new-package@1.0.0
-        Reason: Low download count (892). Age: 3 days.
-
-  BLOCK lodash-utils-extended@2.1.0
-        Reason: OSV match MAL-2026-1142
-
-  Scan complete: 1 blocked, 1 warning, 125 clean.
-  Exit code: 1`}
+        output={`$ npx asen check
+checked 142 package(s), nothing suspicious`}
         outputLang="Terminal"
         notes={[
           "When run in a CI environment (CI=true), output is automatically formatted for log readability.",
@@ -336,15 +328,9 @@ Default mode is warn. Set "mode": "strict" in .agentinel.json to block instead.`
           { code: "0", meaning: "Package is clean." },
           { code: "1", meaning: "Package is flagged or blocked." },
         ]}
-        output={`  npx asen check lodash
-
-  Scanning lodash@latest...
-
-  CLEAN lodash@4.17.21
-        No OSV records. Heuristics: pass.
-        Downloads: 82,400,000/week. Age: 3,841 days.
-
-  Exit code: 0`}
+        output={`$ npx asen check react-router-v7-fake
+⚠️ agentinel warning: react-router-v7-fake is 1 day old and has 4 downloads.
+This matches the profile of a slopsquatting or malicious package.`}
         outputLang="Terminal"
         notes={[
           "This command makes one npm registry call to resolve the latest version number if --version is not specified.",
@@ -373,15 +359,8 @@ Default mode is warn. Set "mode": "strict" in .agentinel.json to block instead.`
           { code: "0", meaning: "Package added to allowlist." },
           { code: "1", meaning: "Missing --reason flag or write error." },
         ]}
-        output={`  npx asen allow my-internal-pkg --reason "Internal monorepo package"
-
-  Added to allowlist:
-    Package:  my-internal-pkg
-    Reason:   Internal monorepo package
-    Added by: aman@company.com
-    Added at: 2026-07-14T09:32:11.000Z
-
-  .agentinel.json updated.`}
+        output={`$ npx asen allow my-internal-pkg --reason "Internal company package not on public npm"
+allowlisted my-internal-pkg in .agentinel.json`}
         outputLang="Terminal"
         notes={[
           "The --reason flag is required. Running asen allow without it will print an error and exit with code 1.",
@@ -438,14 +417,9 @@ agentinel has been completely uninstalled from this repository.`}
             meaning: "No shim found, or could not write to shell profile.",
           },
         ]}
-        output={`  npx asen unshim
-
-  Removing PATH shim...
-    Removed: ~/.agentinel/bin/npm
-    Updated: ~/.zshrc (removed PATH prepend)
-
-  The real npm at /usr/local/bin/npm is active again.
-  Restart your shell or run \`source ~/.zshrc\` to apply.`}
+        output={`$ npx asen unshim
+removed /Users/user/.agentinel/bin
+removed the PATH line from /Users/user/.zshrc`}
         outputLang="Terminal"
         notes={[
           "Always use asen unshim rather than manually deleting the shim binary. Manual deletion leaves a dangling PATH entry in your shell profile.",
