@@ -16,7 +16,6 @@ const NORMAL_HOOK_LINES: RichTerminalLine[] = [
   { text: "" },
   { text: "This matches the profile of a slopsquatting or malicious package.", color: "text-amber-400" },
   { text: "" },
-  { text: "[Agentinel] Install blocked. Context fed back to AI agent.", color: "text-[#FF5F56] font-bold" },
 ];
 
 const CLAUDE_LINES: RichTerminalLine[] = [

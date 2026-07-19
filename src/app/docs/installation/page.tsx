@@ -201,11 +201,11 @@ registered the Claude Code PreToolUse hook in .claude/settings.json
 installed the git pre-commit hook in .git/hooks
 wrote shims for npm, npx, pnpm, yarn, bun in /Users/user/.agentinel/bin
 added the shims to PATH in /Users/user/.zshrc
-Mode is warn, so a risky package typed at the terminal will be reported, not blocked.
+Mode is strict, so a risky package typed at the terminal will be blocked.
 Open a new terminal, or run \`asen unshim\` to undo this.
 
 agentinel is set up. New npm packages will be checked before they land.
-Default mode is warn. Set "mode": "strict" in .agentinel.json to block instead.`}</CodeBlock>
+Default mode is strict. Set "mode": "warn" in .agentinel.json to only warn instead.`}</CodeBlock>
           <p className="text-sm text-gray-500 mt-2">
             Only the agents you have installed will appear in the hooks list.
           </p>

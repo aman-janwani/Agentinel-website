@@ -5,49 +5,44 @@ import { motion, useInView } from "framer-motion";
 
 const ROWS = [
   {
-    feature: "Cost",
-    agentinel: { text: "Free, always", positive: true },
-    alternative: { text: "Paid tiers / per-seat", positive: false },
+    feature: "Cost Model",
+    agentinel: { text: "100% Free / Zero-cost", positive: true },
+    alternative: { text: "Monthly Subscriptions", positive: false },
   },
   {
-    feature: "Privacy",
-    agentinel: { text: "100% local, zero cloud", positive: true },
-    alternative: { text: "Cloud-scanned by vendor", positive: false },
+    feature: "Data Privacy",
+    agentinel: { text: "100% Local (No cloud)", positive: true },
+    alternative: { text: "Sends telemetry/code to cloud", positive: false },
   },
   {
     feature: "Agent Hooking",
-    agentinel: { text: "PreToolUse hook, native", positive: true },
-    alternative: { text: "Wrapper scripts only", positive: false },
+    agentinel: { text: "Native (intercepts AI directly)", positive: true },
+    alternative: { text: "Scans terminal post-facto", positive: false },
   },
   {
-    feature: "AI Feedback Loop",
-    agentinel: { text: "JSON context injection", positive: true },
-    alternative: { text: "None (blocks silently)", positive: false },
+    feature: "Feedback Loop",
+    agentinel: { text: "Tells AI why it failed", positive: true },
+    alternative: { text: "Just blocks the terminal", positive: false },
   },
   {
     feature: "Setup",
-    agentinel: { text: "npm install, one flag", positive: true },
-    alternative: { text: "Config files + auth", positive: false },
+    agentinel: { text: "Zero-config, drop-in", positive: true },
+    alternative: { text: "Requires API keys & accounts", positive: false },
   },
   {
-    feature: "Threat Database",
-    agentinel: { text: "Extensive OSV DB", positive: true },
-    alternative: { text: "Proprietary / opaque", positive: false },
+    feature: "Malware Database",
+    agentinel: { text: "Local OSV Feed (~216k pkgs)", positive: true },
+    alternative: { text: "Proprietary Feeds", positive: false },
   },
   {
     feature: "Feed Freshness",
-    agentinel: { text: "Synced from OSV feed", positive: null },
-    alternative: { text: "Real-time / variable", positive: null },
+    agentinel: { text: "Lags 1-3 days behind OSV", positive: null },
+    alternative: { text: "Real-time / Minutes", positive: null },
   },
   {
     feature: "Detection Method",
-    agentinel: { text: "DB + heuristics", positive: null },
-    alternative: { text: "DB + ML (black-box)", positive: null },
-  },
-  {
-    feature: "License",
-    agentinel: { text: "MIT, open source", positive: true },
-    alternative: { text: "Proprietary", positive: false },
+    agentinel: { text: "Version-exact + Heuristics", positive: null },
+    alternative: { text: "Advanced Behavioral Analysis", positive: null },
   },
 ];
 
