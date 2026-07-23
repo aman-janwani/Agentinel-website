@@ -1,16 +1,17 @@
-# Agentinel - Official Website 🛡️
-
 <div align="center">
-  <img src="public/og-image.png" alt="Agentinel Hero" width="100%" />
+  <img src="assets/banner.jpg" alt="Agentinel Banner" width="100%" />
+
+  [![npm version](https://img.shields.io/npm/v/agentinel.svg?style=flat-square)](https://www.npmjs.com/package/agentinel)
+  [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg?style=flat-square)](LICENSE)
+  [![Node.js CI](https://img.shields.io/github/actions/workflow/status/aman-janwani/agentinel/publish.yml?style=flat-square)](https://github.com/aman-janwani/agentinel/actions)
+  [![Tested On](https://img.shields.io/badge/Tested_On-macOS_%7C_Linux_%7C_Windows-success?style=flat-square)](#)
 </div>
 
 <br />
 
-> **The official landing page and documentation site for Agentinel — the zero-cost, locally-run package guardrail for autonomous AI coding agents.**
+> **The zero-cost, locally-run package guardrail for your AI coding agents. Every other tool in this space guards your terminal. Agentinel guards your agent.**
 
-*Agentinel guards your AI agent when it installs npm packages, catching hallucinated dependencies, slopsquatting, and malicious packages before they execute on your machine.*
-
-🔗 **For the core Agentinel CLI, hooks, and source code, please visit the [Main Agentinel Repository](https://github.com/aman-janwani/agentinel).**
+⭐ **Did Agentinel catch a hallucinated package in your project? Please star this repo to help other developers find it.**
 
 ---
 
@@ -27,77 +28,264 @@ Every other tool in this space guards your terminal. **Agentinel guards your age
 
 ---
 
+## 🕵️ Caught in the Wild
+
+AI agents frequently hallucinate package names that look correct but either don't exist or have been squatted by malicious actors. Here are real examples Agentinel intercepts:
+
+- **`react-codeshift`**: Hallucinated by an agent attempting to migrate React versions.
+- **`unused-imports`**: Hallucinated instead of the real `eslint-plugin-unused-imports`.
+
+**How Agentinel handles it:**
+```bash
+$ npm install react-codeshift unused-imports
+
+⚠️ agentinel warning: 'react-codeshift' does not exist on npm (hallucination).
+⚠️ agentinel warning: 'unused-imports' is 2 days old and has 12 downloads.
+This matches the profile of a slopsquatting or malicious package.
+
+agentinel blocked the installation.
+```
+
+---
+
 ## ⚡ Features & Security Philosophy
 
-- **Zero-Cost & Private:** Agentinel does no network interception, runs no cloud proxies, and requires no paid APIs. The malware list is matched locally.
+- **Zero-Cost & Private:** Agentinel does no network interception, runs no cloud proxies, and makes no LLM or API calls. The malware list is matched locally.
+- **Lightning Fast:** Full local lockfile scans complete in ~1.4 seconds.
 - **Deep Tree Scanning:** Checks every package an install would *actually* bring in, not just the one named. (`npm install express` brings in 67 packages. We check all 67).
 - **Known Malware:** Bundles a local OSV database of 216,000+ confirmed malicious packages.
 - **Zero False Positives on Popular Packages:** Tested against the top 100 npm packages.
 - **Heuristic Scanning:** Flags npm takedowns, packages under 30 days old with < 1k downloads (slopsquatting), publisher drift, and non-existent hallucinated names.
 - **Cross-Platform Compatibility:** Fully tested and natively supported across macOS, Linux, and Windows.
-- **Fails Open:** Designed so that if it crashes or can't reach the registry, it fails open. It will never permanently wedge your terminal or block your work.
+- **Fail-Open Design:** Designed so that if it crashes or can't reach the registry, it fails open. It will never permanently wedge your terminal or block your work.
 
 ---
 
-This repository contains the source code for the Agentinel website, built with modern web standards to be blazingly fast, visually stunning, and highly accessible.
+## 🚀 Installation
 
-## 🚀 Tech Stack
+For the best experience across all your projects and to use the short `asen` alias, install Agentinel globally:
 
-- **Framework:** [Next.js 14](https://nextjs.org/) (App Router)
-- **Styling:** [Tailwind CSS](https://tailwindcss.com/)
-- **Animations:** [Framer Motion](https://www.framer.com/motion/)
-- **Language:** TypeScript
-- **Deployment:** Vercel (Recommended)
-- **Newsletter API:** [Resend](https://resend.com)
+```sh
+npm install -g agentinel
+asen init
+```
 
-## 💻 Getting Started
+Alternatively, you can install it as a dev-dependency per-project:
+```sh
+npm install --save-dev agentinel
+npx agentinel init
+```
+*(No account, no server, no complex configuration.)*
 
-To run the website locally for development:
+---
 
-1. **Clone the repository:**
-   ```bash
-   git clone https://github.com/aman-janwani/Agentinel-website.git
-   cd Agentinel-website
-   ```
+## 🤖 1. Agentic Use (Native Hooks)
 
-2. **Install dependencies:**
-   ```bash
-   npm install
-   ```
+Agentinel wires itself directly into the native pre-execution hooks of popular CLI agents: **Claude Code, Codex CLI, Copilot CLI, and Gemini CLI**. 
 
-3. **Set up Environment Variables:**
-   Copy the example environment file and add your Resend API keys if you want to test the newsletter functionality.
-   ```bash
-   cp .env.example .env.local
-   ```
-   *Note: Your `.env.local` is git-ignored and safe to put private keys in.*
+When an agent attempts to run `npm install`, Agentinel intercepts the event (e.g., `PreToolUse` for Claude) and scans the requested dependency tree. 
 
-4. **Start the development server:**
-   ```bash
-   npm run dev
-   ```
+### How it feeds back to the AI
+If Agentinel flags a package, it feeds the context *back* to the AI agent in a concise format the agent understands, rather than just crashing the terminal.
 
-5. **Open the site:**
-   Navigate to [http://localhost:3000](http://localhost:3000) in your browser.
+**Example Intercept:**
+```json
+{
+  "hookEvent": "PreToolUse",
+  "action": "BLOCK",
+  "reason": "agentinel blocked 'react-router-v7-beta': Package does not exist on npm (hallucination)."
+}
+```
+The AI reads this, realizes the package is fake or malicious, and intelligently searches for the correct alternative instead of blindly retrying.
 
-## 📁 Project Structure
+---
 
-- `/src/app` - Next.js App Router pages (including `/docs` for all documentation).
-- `/src/components/sections` - Major landing page sections (Hero, How It Works, Features, etc.).
-- `/src/components/layouts` - Global layouts like the Navbar and MegaFooter.
-- `/src/app/actions` - Next.js Server Actions (e.g., Resend newsletter integration).
+## 🧑‍💻 2. Normal / Human Use (The Shim)
 
-## 🤝 Contributing
+What about installs that never go through an agent? (e.g., You typing `npm install` manually). 
 
-Agentinel is an open-source project and we welcome contributions! 
-If you find a typo in the documentation, want to improve the UI, or have an idea for a new section, feel free to open a Pull Request.
+Agentinel provides an opt-in **PATH shim**. By default, running `npx asen init` installs this shim automatically.
 
-1. Fork the Project
-2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the Branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
+```sh
+npx asen init
+```
+
+This puts a tiny, fail-open wrapper script earlier in your `PATH`. When you type `npm install <pkg>`, the shim checks the package first. If it's safe, the real `npm` command runs instantly. 
+
+As a bonus, if you just run a plain `npm install` with no arguments, the shim instantly checks your unstaged `package.json` for any newly added dependencies, ensuring that packages you pasted in are scanned before they resolve!
+
+**Terminal Example:**
+```bash
+$ npm install left-pad-malicious
+
+⚠️ agentinel warning: left-pad-malicious is 2 days old and has 12 downloads.
+This matches the profile of a slopsquatting or malicious package.
+```
+
+---
+
+## 🔒 3. The Git Pre-Commit Hook
+
+As a final safety net, `asen init` installs a Git pre-commit hook. 
+Before you can commit a change to `package-lock.json`, Agentinel scans the staged lockfile. If a poisoned dependency slipped in somehow, the commit is flagged, ensuring malware never reaches your `main` branch.
+
+---
+
+## ⚖️ Competitors vs. Us
+
+How do we stack up against traditional commercial security scanners?
+
+| Feature | Agentinel (Us) | Commercial Alternatives |
+|---|---|---|
+| **Cost Model** | **100% Free / Zero-cost** | Monthly Subscriptions |
+| **Data Privacy** | **100% Local (No cloud)** | Sends telemetry/code to cloud |
+| **Agent Hooking** | **Native (intercepts AI directly)** | Scans terminal post-facto |
+| **Feedback Loop** | **Tells AI *why* it failed** | Just blocks the terminal |
+| **Setup** | **Zero-config, drop-in** | Requires API keys & accounts |
+| **Malware Database** | Local OSV Feed (~216k pkgs) | Proprietary Feeds |
+| **Feed Freshness** | *Lags 1-3 days behind OSV* | Real-time / Minutes |
+| **Detection Method** | *Version-exact + Heuristics* | Advanced Behavioral Analysis |
+
+*Note: We currently lag slightly on feed freshness (by a few days) and advanced behavioral analysis compared to paid enterprise tools. These are areas we acknowledge and plan to explore and improve in future versions, without compromising our zero-cost, 100% local philosophy.*
+
+---
+
+## ⚙️ Modes: warn vs strict
+
+Agentinel supports two operating modes, controlled by the `mode` field. You can switch between them using `npx asen mode <warn|strict>`.
+
+### warn (default)
+Agentinel surfaces a warning in the agent output but does not block the install. The agent decides whether to proceed.
+
+`.agentinel.json`
+```json
+{
+  "mode": "warn"
+}
+```
+*Best for teams migrating to Agentinel gradually or using agents in read-heavy workflows.*
+
+### strict
+Agentinel hard-blocks the install and returns an error payload to the agent. The install never reaches npm.
+
+`.agentinel.json`
+```json
+{
+  "mode": "strict"
+}
+```
+*Recommended for production repos, CI pipelines, and any project with autonomous agentic access.*
+
+---
+
+## 🧰 Command Reference
+
+You can run Agentinel using `npx agentinel <command>`. 
+If you have installed `agentinel` globally (`npm install -g agentinel`) or locally in your project, you can use the shorter alias: `npx asen <command>` (or just `asen <command>` if global).
+
+Here are all the commands:
+
+### `npx asen init [--no-shim]`
+Wires up agent hooks and git hooks in the current repo, and installs the global PATH shim for human terminal protection.
+```bash
+$ npx asen init
+
+╭─ agentinel ──────────────────────────────╮
+│  agentinel setup complete                │
+│                                          │
+│  New npm packages will be checked before │
+│  they land.                              │
+│                                          │
+│  ✔ wrote .agentinel.json                 │
+│  ✔ registered the Claude Code PreToolUse │
+│  hook in .claude/settings.json           │
+│  ✔ installed the git pre-commit hook in  │
+│  .git/hooks                              │
+│  ✔ wrote shims for npm, npx, pnpm, yarn, │
+│  bun in /Users/user/.agentinel/bin       │
+│  ✔ added the shims to PATH in            │
+│  /Users/user/.zshrc                      │
+│  ✔ Open a new terminal, or run `asen     │
+│  unshim` to undo this.                   │
+│                                          │
+│  Default mode is strict. Set "mode":     │
+│  "warn" in .agentinel.json to only warn  │
+│  instead.                                │
+╰──────────────────────────────────────────╯
+
+Performance Tip:
+The hook runs on every command, and resolving through npx each time is slow.
+For faster hooks, add it to the repo and run init again:
+  npm install --save-dev agentinel && npx asen init
+```
+
+When used with `--no-shim`, it wires up hooks but skips installing the global PATH shim.
+```bash
+$ npx asen init --no-shim
+wrote .agentinel.json
+registered the Claude Code PreToolUse hook in .claude/settings.json
+installed the git pre-commit hook in .git/hooks
+
+agentinel is set up. New npm packages will be checked before they land.
+Default mode is strict. Set "mode": "warn" in .agentinel.json to only warn instead.
+```
+
+### `npx asen check [pkg...]`
+Scans the unstaged (or newly added) dependencies in your working tree, including the lockfile. Exits non-zero if flagged. (The Git pre-commit hook uses a strictly staged version of this check).
+```bash
+$ npx asen check
+checked 142 package(s), nothing suspicious
+```
+
+Scans a specific package instantly without installing it.
+```bash
+$ npx asen check react-router-v7-fake
+⚠️ agentinel warning: react-router-v7-fake is 1 day old and has 4 downloads.
+This matches the profile of a slopsquatting or malicious package.
+```
+
+### `npx asen allow <pkg> --reason "..."`
+Adds a package to the allowlist in `.agentinel.json` with a required reason. This provides an audited trail for your team.
+```bash
+$ npx asen allow my-internal-pkg --reason "Internal company package not on public npm"
+allowlisted my-internal-pkg in .agentinel.json
+```
+
+### `npx asen mode <warn|strict>`
+Switches Agentinel's operating mode in the `.agentinel.json` file.
+```bash
+$ npx asen mode strict
+set mode to strict in .agentinel.json
+```
+
+### `npx asen uninstall`
+Completely removes all Agentinel hooks from your repository config files (`.claude`, `.gemini`, `.github`, etc.) and removes global shims.
+```bash
+$ npx asen uninstall
+agentinel has been completely uninstalled from this repository.
+```
+
+### `npx asen unshim`
+Removes the global PATH shim.
+```bash
+$ npx asen unshim
+removed /Users/user/.agentinel/bin
+removed the PATH line from /Users/user/.zshrc
+```
+
+---
+
+⭐ **Did Agentinel catch a hallucinated package in your project? Please star this repo to help other developers find it.**
+
+---
+
+## 🤝 Contributing & Maintainers
+
+We welcome contributions! 
+- Please read our [CONTRIBUTING.md](CONTRIBUTING.md) for details on our code of conduct, the zero-cost architecture rules, and the process for submitting pull requests.
+
+**Maintainer:** [Aman Janwani](https://github.com/aman-janwani)
 
 ## 📄 License
 
-Distributed under the MIT License. See `LICENSE` for more information.
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
