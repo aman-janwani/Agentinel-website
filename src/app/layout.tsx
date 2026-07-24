@@ -42,11 +42,54 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebSite",
+        "@id": "https://agentinel.com/#website",
+        "url": "https://agentinel.com",
+        "name": "Agentinel",
+        "description": "Security layer for autonomous coding",
+        "potentialAction": [{
+          "@type": "SearchAction",
+          "target": {
+            "@type": "EntryPoint",
+            "urlTemplate": "https://agentinel.com/search?q={search_term_string}"
+          },
+          "query-input": "required name=search_term_string"
+        }]
+      },
+      {
+        "@type": "Organization",
+        "@id": "https://agentinel.com/#organization",
+        "name": "Agentinel",
+        "url": "https://agentinel.com"
+      },
+      {
+        "@type": "Person",
+        "@id": "https://agentinel.com/#author",
+        "name": "Aman Janwani",
+        "jobTitle": "Creator of Agentinel",
+        "url": "https://github.com/aman-janwani",
+        "sameAs": [
+          "https://github.com/aman-janwani"
+        ]
+      }
+    ]
+  };
+
   return (
     <html
       lang="en"
       className={`${inter.variable} ${instrumentSerif.variable} scroll-smooth`}
     >
+      <head>
+        <link rel="alternate" type="text/markdown" href="/llms.txt" title="Agentinel AI Markdown Index" />
+        <link rel="alternate" type="text/markdown" href="/llms-full.txt" title="Agentinel Full Markdown Corpus" />
+        <link rel="alternate" type="application/json" href="/api/llms" title="Agentinel AI JSON API" />
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
+      </head>
       <body className="antialiased selection:bg-cyan-100 selection:text-cyan-900">
         {children}
         <Script
