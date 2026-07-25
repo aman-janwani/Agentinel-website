@@ -1,0 +1,26 @@
+echo "======================================"
+echo "🛡️ Agentinel Website Strict Pre-Commit"
+echo "======================================"
+
+echo "[1/2] Checking staged files (lint, format)..."
+npx lint-staged
+if [ $? -ne 0 ]; then
+  echo "❌ Lint/Format failed."
+  exit 1
+fi
+
+echo "[2/3] Running full typecheck..."
+npx tsc --noEmit
+if [ $? -ne 0 ]; then
+  echo "❌ Typecheck failed."
+  exit 1
+fi
+
+echo "[3/3] Running full unit tests..."
+npm run test
+if [ $? -ne 0 ]; then
+  echo "❌ Unit tests failed."
+  exit 1
+fi
+
+echo "✅ All checks passed! You are good to commit."
