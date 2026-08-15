@@ -218,7 +218,7 @@ export default function CommandsPage() {
           {
             flag: "--no-shim",
             description:
-              "Skip installing the global PATH shim that intercepts npm calls system-wide.",
+              "Skip installing the global PATH shim that intercepts package manager calls system-wide.",
           },
           {
             flag: "--force",
@@ -276,7 +276,7 @@ For faster hooks, add it to the repo and run init again:
       <CommandSection
         name="asen init --no-shim"
         usage="npx asen init --no-shim"
-        description="Runs the standard init flow to wire up agent hooks and git hooks, but skips installing the global PATH shim that wraps the npm binary."
+        description="Runs the standard init flow to wire up agent hooks and git hooks, but skips installing the global PATH shim that wraps package manager binaries."
         flags={[]}
         exitCodes={[
           { code: "0", meaning: "Init successful without shim." },
@@ -428,7 +428,7 @@ agentinel has been completely uninstalled from this repository.`}
       <CommandSection
         name="asen unshim"
         usage="npx asen unshim"
-        description="Removes the global PATH shim installed by asen init --shim. Cleans up the shim binary and removes the PATH entry from your shell profile. The real npm binary is restored to its original position."
+        description="Removes the global PATH shim installed by asen init --shim. Cleans up the shim binary and removes the PATH entry from your shell profile. The real package manager binaries are restored to their original positions."
         flags={[
           {
             flag: "--dry-run",

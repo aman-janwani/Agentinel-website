@@ -237,11 +237,7 @@ For faster hooks, add it to the repo and run init again:
         </h2>
         <p className="mb-4 text-sm">
           By default, <code className="bg-gray-100 text-pink-600 px-1.5 py-0.5 rounded font-mono border border-gray-200">asen init</code> installs a global PATH
-          shim that intercepts all{" "}
-          <code className="bg-gray-100 text-pink-600 px-1.5 py-0.5 rounded font-mono border border-gray-200">
-            npm install
-          </code>{" "}
-          calls system-wide before forwarding them to the real npm binary. If you only want to wire up agent hooks and git hooks, you can skip this.
+          shim that intercepts package manager calls system-wide before forwarding them to the real binaries. If you only want to wire up agent hooks and git hooks, you can skip this.
         </p>
         <CodeBlock>npx asen init --no-shim</CodeBlock>
         <div className="border-l-4 border-amber-400 bg-amber-50 rounded-r-xl px-5 py-4 mt-4">
@@ -249,11 +245,7 @@ For faster hooks, add it to the repo and run init again:
             Shim caveat
           </p>
           <p className="text-sm text-amber-700">
-            The PATH shim modifies your shell profile and replaces the{" "}
-            <code className="bg-amber-100 text-amber-900 px-1 rounded font-mono">
-              npm
-            </code>{" "}
-            command globally. To remove it cleanly, run{" "}
+            The PATH shim modifies your shell profile and replaces package manager commands globally. To remove it cleanly, run{" "}
             <code className="bg-amber-100 text-amber-900 px-1 rounded font-mono">
               npx asen unshim
             </code>

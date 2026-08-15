@@ -12,10 +12,11 @@ type RichTerminalLine = { text: string | RichToken[]; color?: string };
 
 const NORMAL_HOOK_LINES: RichTerminalLine[] = [
   { text: "" },
-  { text: "⚠️ agentinel warning: left-pad-malicious is 2 days old and has 12 downloads.", color: "text-amber-400 font-semibold" },
-  { text: "" },
+  { text: "⚠️ agentinel warning: 'react-codeshift' does not exist on npm (hallucination).", color: "text-amber-400 font-semibold" },
+  { text: "⚠️ agentinel warning: 'unused-imports' is 2 days old and has 12 downloads.", color: "text-amber-400 font-semibold" },
   { text: "This matches the profile of a slopsquatting or malicious package.", color: "text-amber-400" },
   { text: "" },
+  { text: "agentinel blocked the installation.", color: "text-[#FF5F56]" },
 ];
 
 const CLAUDE_LINES: RichTerminalLine[] = [
@@ -45,7 +46,7 @@ const CLAUDE_LINES: RichTerminalLine[] = [
 ];
 
 const TABS = [
-  { id: "normal" as const, label: "Normal Hook", command: "npm install left-pad-malicious", lines: NORMAL_HOOK_LINES, title: "bash -- agentinel" },
+  { id: "normal" as const, label: "Normal Hook", command: "npm install react-codeshift unused-imports", lines: NORMAL_HOOK_LINES, title: "bash -- agentinel" },
   { id: "claude" as const, label: "Claude Code", command: "claude: npm install react-router-v7-beta", lines: CLAUDE_LINES, title: "PreToolUse -- agentinel" },
 ];
 

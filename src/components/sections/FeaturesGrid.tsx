@@ -221,7 +221,7 @@ export function FeaturesGrid() {
                 <p className="text-xs font-semibold uppercase tracking-widest text-[#00E5CC] mb-2">Deep Tree Scanning</p>
                 <h3 className="font-serif text-2xl text-[#0A0A0A] mb-2">All 67 packages. Not just one.</h3>
                 <p className="text-gray-500 text-sm leading-relaxed">
-                  <code className="text-gray-700 bg-gray-100 px-1 rounded font-mono text-xs">npm install express</code> brings in its full dependency tree. We scan every single one.
+                  <code className="text-gray-700 bg-gray-100 px-1 rounded font-mono text-xs">npm</code>, <code className="text-gray-700 bg-gray-100 px-1 rounded font-mono text-xs">pip</code>, or <code className="text-gray-700 bg-gray-100 px-1 rounded font-mono text-xs">cargo</code> brings in its full dependency tree. We scan every single one.
                 </p>
               </div>
               <div className="flex-1 flex items-center justify-center min-h-[160px]">
